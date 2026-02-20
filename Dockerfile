@@ -38,10 +38,7 @@ RUN chmod -R 775 storage bootstrap/cache
 # Generate app key (will use ENV variables)
 RUN php artisan key:generate --force || true
 
-# Cache config, routes, views (performance)
-RUN php artisan config:cache || true
-RUN php artisan route:cache || true
-RUN php artisan view:cache || true
+
 
 # Run migrations automatically (VERY IMPORTANT)
 RUN php artisan migrate --force || true
