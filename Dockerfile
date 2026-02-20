@@ -38,10 +38,18 @@ RUN chmod -R 775 storage bootstrap/cache
 # Generate app key (will use ENV variables)
 RUN php artisan key:generate --force || true
 
+# Permissions fix (CRITICAL)
+RUN chown -R www-data:www-data /var/www/html/storage
+RUN chown -R www-data:www-data /var/www/html/bootstrap/cache
 
+RUN chmod -R 775 /var/www/html/storage
+RUN chmod -R 775 /var/www/html/bootstrap/cache
 
 # Run migrations automatically (VERY IMPORTANT)
 RUN php artisan migrate --force || true
+
+
+
 
 # Expose port
 EXPOSE 80
